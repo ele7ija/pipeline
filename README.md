@@ -20,16 +20,17 @@ import (
 type LShiftWorker struct {
 }
 
-func (f *LShiftWorker) Work(ctx context.Context, in pipeline.Item) (pipeline.Item, error) {
+func (w *LShiftWorker) Work(ctx context.Context, in pipeline.Item) (pipeline.Item, error) {
 
 	n := in.(int)
 	return n << 1, nil
 }
 
 func main() {
-
+	
 	f := pipeline.NewSerialFilter(&LShiftWorker{}, &LShiftWorker{})
-
+    p := pipeline.NewPipeline("My pipeline", f)
+	
 	items := make(chan pipeline.Item, 5)
 	errors := make(chan error, 5)
 	items <- 0
@@ -39,7 +40,7 @@ func main() {
 	items <- 4
 	close(items)
 
-	filteredItems := f.Filter(context.Background(), items, errors)
+	filteredItems := p.Filter(context.Background(), items, errors)
 
 	go func() {
 		for range errors {
