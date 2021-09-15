@@ -1,6 +1,6 @@
 # *pipeline* - create fast Go pipelines
 
-`pipeline` is a package enabling you to create custom pipelines in Go.
+<img src="https://raw.githubusercontent.com/ashleymcnamara/gophers/master/NERDY.png" width="100" height="100" alt="nerd" class="emoji" title="nerd"/> `pipeline` is a package enabling you to create custom pipelines in Go.
 
 It provides you with filters like *Serial* or *Parallel* and leaves it to you, 
 the user, to focus only on what transformations to do on the data.
