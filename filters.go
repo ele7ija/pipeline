@@ -34,10 +34,10 @@ func (f *SerialFilter) Filter(ctx context.Context, in <-chan Item, errors chan<-
 	items := make(chan Item)
 	go func() {
 		startedTotal := time.Now()
-		for nInterface := range in {
+		for itemI := range in {
 			atomic.AddUint64(&f.stat.NumberOfItems, 1)
 			started := time.Now()
-			item, err := f.pipe(ctx, nInterface, 0)
+			item, err := f.pipe(ctx, itemI, 0)
 			f.stat.TotalWork += time.Since(started)
 			started = time.Now()
 			if err != nil {
@@ -96,8 +96,8 @@ func NewParallelFilter(workers ...Worker) *ParallelFilter {
 func (f *ParallelFilter) Filter(ctx context.Context, in <-chan Item, errors chan<- error) <-chan Item {
 
 	items := make(chan Item)
-	wg := sync.WaitGroup{}
 	go func() {
+		wg := sync.WaitGroup{}
 		startedTotal := time.Now()
 		for item := range in {
 			wg.Add(1)
@@ -170,8 +170,8 @@ func NewBoundedParallelFilter(bound int, workers ...Worker) *BoundedParallelFilt
 func (f *BoundedParallelFilter) Filter(ctx context.Context, in <-chan Item, errors chan<- error) <-chan Item {
 
 	items := make(chan Item)
-	wg := sync.WaitGroup{}
 	go func() {
+		wg := sync.WaitGroup{}
 		startedTotal := time.Now()
 		for item := range in {
 			f.sem <- struct{}{}
