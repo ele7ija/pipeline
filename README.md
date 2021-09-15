@@ -29,8 +29,8 @@ func (w *LShiftWorker) Work(ctx context.Context, in pipeline.Item) (pipeline.Ite
 func main() {
 	
 	f := pipeline.NewSerialFilter(&LShiftWorker{}, &LShiftWorker{})
-    p := pipeline.NewPipeline("My pipeline", f)
-	
+	p := pipeline.NewPipeline("My pipeline", f)
+
 	items := make(chan pipeline.Item, 5)
 	errors := make(chan error, 5)
 	items <- 0
@@ -49,8 +49,8 @@ func main() {
 	}()
 	for filteredItem := range filteredItems {
 		fmt.Println(filteredItem.(int))
-    }
-    close(errors)
+	}
+	close(errors)
 }
 
 // Output:
