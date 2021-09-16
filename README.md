@@ -1,4 +1,4 @@
-# *pipeline* - create fast Go pipelines
+# *pipeline* - create fast Go pipelines ![build](https://github.com/ele7ija/pipeline/actions/workflows/go.yml/badge.svg)
 
 <img src="https://raw.githubusercontent.com/ashleymcnamara/gophers/master/NERDY.png" width="100" height="100" alt="nerd" class="emoji" title="nerd"/> `pipeline` is a package enabling you to create custom pipelines in Go.
 
